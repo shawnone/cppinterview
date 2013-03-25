@@ -10,8 +10,9 @@ file(GLOB header
     "*.h"
 )
 
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/include)
-link_directories(${PROJECT_SOURCE_DIR}/3rdparty/lib)
+add_subdirectory (externals/gtest)
+
+include_directories(${PROJECT_SOURCE_DIR}/externals/gtest/include)
 
 add_executable (cppinterview ${src})
 target_link_libraries(cppinterview gtest)
