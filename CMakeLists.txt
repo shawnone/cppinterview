@@ -14,5 +14,13 @@ add_subdirectory (externals/gtest)
 
 include_directories(${PROJECT_SOURCE_DIR}/externals/gtest/include)
 
+if(WIN32)
+    set(CMAKE_CXX_FLAGS_DEBUG  "/D_DEBUG /MTd /Zi /Ob0 /Od /RTC1 /DRDFD_DIAGNOSTIC_MODE /GS" CACHE STRING "Compiler flags for Debug." FORCE)
+    set(CMAKE_CXX_FLAGS_MINSIZEREL  "/MT /O1 /Ob1 /D NDEBUG /GS-" CACHE STRING "Compiler flags for MinSizeRel." FORCE)
+    set(CMAKE_CXX_FLAGS_RELEASE  "/MT /O2 /Ob2 /D NDEBUG /GL -PogoSafeMode /GS-" CACHE STRING "Compiler flags for Release." FORCE)
+    set(CMAKE_CXX_FLAGS_RELEASELOWOPT  "/MT /O2 /Ob2 /D NDEBUG /MP /GS-" CACHE STRING "Compiler flags for Release." FORCE)
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "/MT /Zi /Ob0 /Od /D NDEBUG /DRDFD_DIAGNOSTIC_MODE /GS-" CACHE STRING "Compiler flags for RelWithDebInfo." FORCE)
+endif()
+
 add_executable (cppinterview ${src})
 target_link_libraries(cppinterview gtest)
