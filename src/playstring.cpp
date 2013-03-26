@@ -33,13 +33,13 @@ TEST(playstring, findsubset)
 	std::unordered_map<char, int16_t> checkingSet;
 	char* input = new char[32];
 	char* input2 = new char[32];
-    strcpy(input, "abcdefg");
+	strcpy(input, "abcdefg");
 	strcpy(input2, "ace");
-    ASSERT_TRUE(IsIncluded(input, input2, checkingSet));
+	ASSERT_TRUE(IsIncluded(input, input2, checkingSet));
 
 	strcpy(input, "ABCDEFGHLMNOPQRS");
 	strcpy(input2, "DCGSRQPOZ");
-    ASSERT_FALSE(IsIncluded(input, input2, checkingSet));
+	ASSERT_FALSE(IsIncluded(input, input2, checkingSet));
 
 	delete input;
 	delete input2;
@@ -47,24 +47,22 @@ TEST(playstring, findsubset)
 
 bool IsIncluded(char* source, char* toBeChecked)
 {
-    std::bitset<10000> checkSet;
-    
-    while(*source != '\0')
+	std::bitset<10000> checkSet;
+	
+	while(*source != '\0')
 	{
 		checkSet.set(*source);
 		++source;
 	}
-    
+	
 	while(*toBeChecked != '\0')
 	{
 		if(!checkSet.test(*toBeChecked))
 		{
 			return false;
 		}
-        
 		++toBeChecked;
 	}
-    
 	return true;
 }
 
@@ -72,14 +70,14 @@ TEST(playstring, findsubset_bitset)
 {
 	char* input = new char[32];
 	char* input2 = new char[32];
-    strcpy(input, "abcdefg");
+	strcpy(input, "abcdefg");
 	strcpy(input2, "ace");
-    ASSERT_TRUE(IsIncluded(input, input2));
-    
+	ASSERT_TRUE(IsIncluded(input, input2));
+
 	strcpy(input, "ABCDEFGHLMNOPQRS");
 	strcpy(input2, "DCGSRQPOZ");
-    ASSERT_FALSE(IsIncluded(input, input2));
-    
+	ASSERT_FALSE(IsIncluded(input, input2));
+
 	delete input;
 	delete input2;
 }
