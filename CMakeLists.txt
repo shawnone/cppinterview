@@ -23,6 +23,10 @@ else(APPLE)
     set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 endif()
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+endif()
+
 add_subdirectory (externals/gtest)
 
 include_directories(${PROJECT_SOURCE_DIR})
