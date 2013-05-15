@@ -25,7 +25,8 @@ endif()
 
 add_subdirectory (externals/gtest)
 
+include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/externals/gtest/include)
 
-add_executable (cppinterview ${src})
+add_executable (cppinterview ${src} ${header})
 target_link_libraries(cppinterview gtest)
