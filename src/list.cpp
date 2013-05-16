@@ -5,7 +5,7 @@
 
 struct Node
 {
-	Node(int value) : value_(value), next_(nullptr)
+	Node(int value) : value_(value), next_(0)
 	{
 	}
 	int value_;
@@ -14,12 +14,12 @@ struct Node
 
 Node* CreateList(const std::vector<int>& ve)
 {
-	Node* previous = nullptr;
-	Node* head = nullptr;
+	Node* previous = 0;
+	Node* head = 0;
 	for(auto iter = ve.begin(); iter != ve.end(); ++iter)
 	{
 		Node* current = new Node(*iter);
-		if(previous != nullptr)
+		if(previous != 0)
 		{
 			previous->next_ = current;
 		}
@@ -37,7 +37,7 @@ Node* CreateList(const std::vector<int>& ve)
 void FreeList(Node* head)
 {
 	Node* current = head;
-	Node* next = nullptr;
+	Node* next = 0;
 	while(current)
 	{
 		next = current->next_;
@@ -50,16 +50,16 @@ void FreeList(Node* head)
 Node* reverseList(Node* head)
 {
 	Node* first = head;
-	Node* second = nullptr;
-	Node* third = nullptr;
-	Node* fourth = nullptr;
+	Node* second = 0;
+	Node* third = 0;
+	Node* fourth = 0;
 	bool firstPair = true;
 	
 	while(first && (second = first->next_))
 	{
 
 		third = second->next_;
-		fourth = nullptr;
+		fourth = 0;
 		if(third)
 		{
 			fourth = third->next_;
@@ -112,7 +112,7 @@ TEST(list, reverse)
 	head = head->next_;
 	ASSERT_EQ(7, head->value_);
 	head = head->next_;
-	ASSERT_EQ(nullptr, head);
+	ASSERT_EQ(0, head);
 
 	
 	FreeList(freePoint);
@@ -129,7 +129,7 @@ TEST(list, reverse)
 	head = head->next_;
 	ASSERT_EQ(5, head->value_);
 	head = head->next_;
-	ASSERT_EQ(nullptr, head);
+	ASSERT_EQ(0, head);
 
 	
 	FreeList(freePoint);

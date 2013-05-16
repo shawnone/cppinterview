@@ -22,7 +22,8 @@ void reversal(char* input, int16_t size)
 */
 void shift(char* input, int16_t size, int16_t shiftCount)
 {
-	if(shiftCount == 0 || input == nullptr || size == 0)
+    //0 to check pointer to support old compiler
+	if(shiftCount == 0 || input == 0 || size == 0)
 	{
 		return;
 	}

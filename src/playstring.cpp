@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <cstdint>
+#include <algorithm>
 #include <bitset>
 #include <unordered_map>
 
@@ -135,9 +136,9 @@ Variables should be null-terminated
 */
 const char* StrStr(const char* source, const char* toBeSearched)
 {
-	if(source == nullptr || toBeSearched == nullptr)
+	if(source == 0 || toBeSearched == 0)
 	{
-		return nullptr;
+		return 0;
 	}
 
 	const char* searchBegin = source;
@@ -171,7 +172,7 @@ const char* StrStr(const char* source, const char* toBeSearched)
 		toBesearchedBegin = toBeSearched;
 	}
 
-	return nullptr;
+	return 0;
 }
 
 TEST(playstring, strstr)

@@ -10,6 +10,8 @@
 
 #include <toolkit.h>
 
+#include <algorithm>
+
 template <typename T>
 void RemoveDuplicateElement(std::vector<T>& input)
 {
