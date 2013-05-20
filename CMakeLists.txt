@@ -10,6 +10,20 @@ file(GLOB header
     "*.h"
 )
 
+file(GLOB_RECURSE leetcode_src
+    "leetcode/src/*.cpp"
+)
+
+file(GLOB_RECURSE leetcode_header
+    "leetcode/*.h"
+)
+
+source_group(source FILES ${src})
+source_group(include FILES ${header})
+source_group(leetcode\\source FILES ${leetcode_src})
+source_group(leetcode\\include FILES ${leetcode_header})
+
+
 add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 
 if(WIN32)
@@ -32,5 +46,5 @@ add_subdirectory (externals/gtest)
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/externals/gtest/include)
 
-add_executable (cppinterview ${src} ${header})
+add_executable (cppinterview ${src} ${header} ${leetcode_src} ${leetcode_header})
 target_link_libraries(cppinterview gtest)
