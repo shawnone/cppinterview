@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <algorithm>
 #include <bitset>
+#include <map>
 #include <unordered_map>
 
 #include <toolkit.h>
@@ -435,4 +436,133 @@ TEST(playstring, balance_paranthesis)
 	
 	ASSERT_EQ("(A)", BalanceParanthesis(input));
 
+}
+
+/**
+ * Count all the words in the input string(split by space), print in sorted order as per count.
+ * If two words has same count, they should be alphabetically sorted.
+ */
+ 
+void Record(std::map<std::string, int>& countRecorder, const std::string& s, size_t start, size_t end)
+{
+    std::string word;
+    
+    word = s.substr(start, end - start);
+    if(countRecorder.find(word) == countRecorder.end())
+    {
+        countRecorder[word] = 1;
+    }
+    else
+    {  
+        ++countRecorder[word];
+    }
+} 
+void CountWords(const std::string& s)
+{
+    size_t start = 0;
+    size_t end = 0;
+    std::map<std::string, int> countRecorder;
+    
+    
+    while(end < s.size())
+    {
+        if(s[end] == ' ')
+        {
+            if(end == start)
+            {
+                ++start;
+            }
+            else
+            {
+                Record(countRecorder, s, start, end);
+            }
+            
+            start = end + 1;
+        }
+        ++end;
+    }
+    
+    if(start != end)
+    {
+        Record(countRecorder, s, start, end);
+    }
+    
+    if(!countRecorder.empty())
+    {
+        std::vector<std::vector<std::string>> output;
+        output.resize(countRecorder.size());
+        
+        for(auto iter = countRecorder.begin(); iter != countRecorder.end(); ++iter)
+        {
+           output[iter->second].push_back(iter->first);
+        }
+        
+        for(auto iter = output.rbegin(); iter != output.rend(); ++iter)
+        {
+            for(auto innerIter = iter->begin(); innerIter != iter->end(); ++innerIter)
+            {
+                std::cout << *innerIter << ",";
+            }
+        }
+        
+        std::cout << std::endl;
+    }
+}
+
+TEST(playstring, countwords_and_sort)
+{
+    CountWords("how do you do");
+    CountWords("");
+    CountWords("   ");
+    CountWords("how    do   you   do  ");
+}
+
+
+/*
+Given a ternary string, you have to count the total number of contiguous substrings (contigious set of characters), 
+that you can form from this given string such that they comprise of either only one or two different characters. 
+
+For example:
+
+input ternary string - aabc
+output - 8
+The above string comprises of the following substrings that have either one or two of the characters - 
+a, a, b, c, aa, ab, bc and aab. So the final answer is a total of eight substrings. 
+*/
+
+std::set<char> flags;
+
+int CountString(const std::string& s)
+{
+    int hit = 0;
+    int count = 0;
+    
+    for(int i = 0; i < s.size(); ++i)
+    {
+        flags.clear();
+        hit = 0;
+        for(int j = i; j < s.size(); ++j)
+        {
+            if(flags.find(s[j]) == flags.end())
+            {
+                flags.insert(s[j]);
+                ++hit;
+            }
+            
+            if(hit > 2)
+            {
+                break;
+            }
+            ++count;
+        }
+    }
+    
+    return count;
+}
+
+TEST(playstring, count_string)
+{
+    ASSERT_EQ(8, CountString("aabc"));
+    ASSERT_EQ(5, CountString("abc"));
+    ASSERT_EQ(16, CountString("baaccb"));
 }

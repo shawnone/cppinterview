@@ -211,18 +211,14 @@ void FindSubSet(std::vector<int>& input, int SUM, int current, std::vector<std::
 			oneResult.push_back(input[i]);
 			current += input[i];
 			
-			if(i > position)
-			{
-				position = i;
-			}
 			
 			if(reuse)
 			{
-				FindSubSet(input, SUM, current, result, oneResult, position, reuse);
+				FindSubSet(input, SUM, current, result, oneResult, i, reuse);
 			}
 			else
 			{
-				FindSubSet(input, SUM, current, result, oneResult, ++position, reuse);
+				FindSubSet(input, SUM, current, result, oneResult, i + 1, reuse);
 			}
 
 			
@@ -255,6 +251,11 @@ TEST(permutation, allsub)
 		
 	ASSERT_EQ(2, result.size());
 	Print2LevelVector(result);
+    
+    
+    input = {1, 5, 10, 25, 50};
+    GetAllSub(input, 100, result, true);
+    std::cout << "Size: " << result.size() << std::endl;
 }
 
 void GetAllSubset(std::vector<int>& input, std::vector<std::vector<int>>& result)

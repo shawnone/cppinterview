@@ -46,7 +46,6 @@ void FreeList(Node* head)
 	}
 }
 
-
 Node* reverseList(Node* head)
 {
 	Node* first = head;
@@ -133,4 +132,96 @@ TEST(list, reverse)
 
 	
 	FreeList(freePoint);
+}
+
+/**
+ * a->b->c ==> b->a->c
+ * a->b->c->d ==> b->a->d->c 
+ */
+Node* SwapNodePairwise(Node* head)
+{
+    if(!head)
+    {
+        return head;
+    }
+    
+    Node* first = head;
+    Node* second = 0;
+    Node* third = 0;
+    Node* previous = 0;
+    
+    bool firstSwap = true;
+    
+    while(first)
+    {
+        second = first->next_;
+        third = 0;
+        if(second)
+        {
+    		if(previous)
+			{
+				previous->next_ = second;
+			}
+            third = second->next_;
+            second->next_ = first;
+        
+            if(firstSwap)
+            {
+                head = second;
+                firstSwap = false;
+            }
+            first->next_ = third;
+            previous = first;  
+        }
+        
+        first = third;
+    }
+    
+    return head;
+    
+}
+
+TEST(list, swap_pairwise)
+{
+    std::vector<int> ve = {1, 2, 3, 4, 5, 6, 7};
+    
+	Node* head = CreateList(ve);
+    
+    head = SwapNodePairwise(head);
+    
+    Node* freePoint = head;
+    
+	ASSERT_EQ(2, head->value_);
+	head = head->next_;
+	ASSERT_EQ(1, head->value_);
+	head = head->next_;
+    ASSERT_EQ(4, head->value_);
+	head = head->next_;
+	ASSERT_EQ(3, head->value_);
+	head = head->next_;
+    ASSERT_EQ(6, head->value_);
+	head = head->next_;
+	ASSERT_EQ(5, head->value_);
+	head = head->next_;
+    ASSERT_EQ(7, head->value_);
+    
+    FreeList(freePoint);
+    
+    ve = {1};
+    head = CreateList(ve);
+    
+    head = SwapNodePairwise(head);
+    freePoint = head;
+    ASSERT_EQ(1, head->value_);
+    FreeList(freePoint);
+    
+    ve = {1, 2};
+    head = CreateList(ve);
+    
+    head = SwapNodePairwise(head);
+    freePoint = head;
+    ASSERT_EQ(2, head->value_);
+    head = head->next_;
+    ASSERT_EQ(1, head->value_);
+    FreeList(freePoint);
 }
