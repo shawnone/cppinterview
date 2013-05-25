@@ -3,11 +3,14 @@
 #include <cstdint>
 #include <memory>
 
-struct TreeNode
+namespace
 {
-    std::shared_ptr<TreeNode> left;
-    std::shared_ptr<TreeNode> right;
-};
+	struct TreeNode
+	{
+		std::shared_ptr<TreeNode> left;
+		std::shared_ptr<TreeNode> right;
+	};
+}
 
 int32_t GetHeight(std::shared_ptr<TreeNode>& root)
 {

@@ -330,7 +330,7 @@ int minCutFinal(const std::string& s)
 
 TEST(L132_131, 131Normal)
 {
-	Print2LevelVector(partition("ababbbabbaba"));
+	Print2LevelVector(partition("aab"));
 }
 
 TEST(L132_131, 132Normal)
