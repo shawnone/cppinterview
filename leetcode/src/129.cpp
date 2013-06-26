@@ -11,6 +11,7 @@
 #include <toolkit.h>
 
 #include <list>
+#include <memory>
 
 /**
  Sum Root to Leaf Numbers

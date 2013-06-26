@@ -6,8 +6,7 @@
 //
 //
 
-#ifndef cppinterview_toolkit_h
-#define cppinterview_toolkit_h
+#pragma once
 
 template <typename T>
 void Swap(T& left, T& right)
@@ -42,5 +41,3 @@ void PrintVector(const std::vector<T>& input)
 	std::cout << std::endl;
 }
 
-
-#endif
